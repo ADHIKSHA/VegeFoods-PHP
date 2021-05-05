@@ -1330,7 +1330,7 @@ pre {
   background-color: transparent; }
   .table th,
   .table td {
-    padding: 0.75rem;
+    padding: 1px;
     vertical-align: top;
     border-top: 1px solid #dee2e6; }
   .table thead th {
@@ -8929,18 +8929,18 @@ h1, h2, h3, h4, h5,
   .table .thead-primary {
     background: #82ae46; }
     .table .thead-primary tr th {
-      padding: 20px 10px;
+      padding: 1px 1px;
       color: #fff !important;
       border: 1px solid transparent !important; }
   .table tbody tr td {
     text-align: center !important;
     vertical-align: middle;
-    padding: 40px 10px;
+    padding: 1px 1px;
     border: 1px solid transparent !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important; }
     .table tbody tr td.product-remove a {
       bordeR: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 4px 10px;
+      padding: 1px 1px;
       color: #000000; }
       .table tbody tr td.product-remove a:hover {
         border: 1px solid #82ae46;

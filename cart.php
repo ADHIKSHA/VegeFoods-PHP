@@ -169,7 +169,7 @@ else{
     						<span id="sumofall"></span>
     					</p>
     					<p class="d-flex">
-    						<span>Delivery</span>
+    						<span>Delivery Charges</span>
     						<span>5%</span>
     					</p>
     					<hr>

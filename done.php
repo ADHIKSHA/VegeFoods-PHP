@@ -78,9 +78,12 @@
         </div>
       </div>
     </div>
-
-    <h3 class="mb-0 bread">Thank You for your order ! </h3><h4 style="color: green;">Notification sent to your email and the restaurant as well! your order will be with you soon.</h4>
-
+    <CENTER>
+      <br><br>
+    <h1 class="mb-0 bread">Thank You for your order ! </h1>
+    <br><br>
+    <h4 style="color: green;">Notification sent to your email and the restaurant as well! your order will be with you soon.</h4>
+  </CENTER>
     <footer class="ftco-footer ftco-section">
       <div class="container">
         <div class="row">

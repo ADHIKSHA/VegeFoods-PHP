@@ -110,14 +110,16 @@ $result = mysqli_query($db, $user_check_query);
         </div>
       </div>
     </div>
-
+<br>
+<div style="float: right;margin-right: 40px;">
 <a href="adddish.php" style="text-align: left;" class="btn btn-primary">Add New Dish </a>
 <a href="delete.php" style="text-align: left; background-color:tomato;" class="btn btn-primary">Delete Dish</a>
-               <br><Br> 
+</div>
+<br><br> <br>
 
 
-<table class="table table-hover">
-    <thead style="text-align: : center;">
+<table class="table table-hover table-border table-sm" style="font-size: 17px;">
+    <thead style="text-align:center;font-size: 20px;">
       <tr style="text-align: center;"><CENTER>
         <th style="text-align: center;font-weight: bold;">Dish Name</th>
         <th style="text-align: center;font-weight: bold;">Price</th>
@@ -137,7 +139,6 @@ $result = mysqli_query($db, $user_check_query);
       <?php endwhile ?>
     </tbody>
   </table>
-  <a href="adddish.php">Press</a>
     <footer class="ftco-footer ftco-section">
       <div class="container">
         <div class="row">

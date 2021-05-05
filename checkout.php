@@ -27,7 +27,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
       $location=$user['location'];
       $phone=$user['phone'];
       $total=$_SESSION['costings'];
-      $disc=$total-$total*0.05;
+      $disc=$total+$total*0.05;
     }
 
 ?>
@@ -57,7 +57,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
 
-    
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
@@ -75,9 +75,6 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 					    <div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
 						    <span class="text">youremail@email.com</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
 					    </div>
 				    </div>
 			    </div>
@@ -166,7 +163,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 											</div>
 										</div>
 									</div>
-									<p><a href="done.php"class="btn btn-primary py-3 px-4">Place an order</a></p>
+									<p><a href="" class="btn btn-primary py-3 px-4" onclick="popup();">Place an order</a></p>
 								</div>
 	          	</div>
 	          </div>
@@ -209,7 +206,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebookinstagram"></span></a></li>
               </ul>
             </div>
           </div>
@@ -266,8 +263,29 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
-
+  <script src="sweetalert2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.13/dist/sweetalert2.all.min.js"></script>
+ 
   <script>
+  function popup(){
+    Swal.fire({
+  title: 'Do you want to save the changes?',
+  showDenyButton: true,
+  showCancelButton: true,
+  confirmButtonText: `Save`,
+  denyButtonText: `Don't save`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire('Saved!', '', 'success')
+    window.location.replace('done.php');
+  } else if (result.isDenied) {
+    Swal.fire('Changes are not saved', '', 'info')
+    window.location.replace('cart.php');
+  }
+})
+}
+
 		$(document).ready(function(){
 
 		var quantitiy=0;

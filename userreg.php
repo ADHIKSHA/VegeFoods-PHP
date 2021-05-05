@@ -123,7 +123,7 @@
                  <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="emailaddress">Password</label>
-	                  <input type="text" name="password"class="form-control" placeholder="" pattern=".{8,}" title="Eight or more characters">
+	                  <input type="password" name="password"class="form-control" placeholder="" pattern=".{8,}" title="Eight or more characters">
 	                </div>
                 </div>
                 <div class="col-md-6">
