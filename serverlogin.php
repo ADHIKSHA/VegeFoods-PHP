@@ -7,12 +7,20 @@ $password = "";
 $errors = array(); 
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 if(isset($_SESSION['type'])=="restaurant")
-  echo("<script>alert('already logged in as a Restaurant owner!');</script>");
+  {
+    echo("<script>alert('already logged in as a Restaurant owner!');
+    window.location.replace('index.php');
+    </script>");
+  }
 
-if(isset($_SESSION['type'])=="user")
-  echo("<script>alert('already logged in as a user! Log out first.');</script>");
+else if(isset($_SESSION['type'])=="user")
+  {
+    echo("<script>alert('already logged in as a user! Log out first.');
+    window.location.replace('index.php');
+    </script>");
+  }
 
-
+else{
 if (isset($_POST['login'])) {
   // receive all input values from the form
   $email = mysqli_real_escape_string($db, $_POST['email']);
@@ -58,13 +66,6 @@ $password = "";
 $location    = "";
 $errors = array(); 
 
-if(isset($_SESSION['type'])=="restaurant")
-  echo("<script>alert('Already logged in as a Restaurant owner!');</script>");
-
-if(isset($_SESSION['type'])=="user")
-  echo("<script>alert('Already logged in as a user! Log out first.');</script>");
-
-
 // connect to the database
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 
@@ -109,5 +110,5 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     header('location: shop.php');
   }
 }
-
+}
 ?>

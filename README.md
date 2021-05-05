@@ -5,7 +5,7 @@ An Online Ecommerce Website made using PHP framework with phpmyadmin as database
 ## Usage
 ```
 Paste this folder in the "htdocs" folder in xampp.
-To run just start the Xampp Server and open the index.html file.
+To run just start the Xampp Server and open the index.php file.
 
 ```
 

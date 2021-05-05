@@ -2,85 +2,26 @@
 session_start();
 
 // initializing variables
-$ownname = "";
-$email    = "";
-$resname = "";
-$country    = "";
-$add1 = "";
-$add2    = "";
-$phone = "";
-$city    = "";
-$password = "";
-$location    = "";
-$resid="";
-$errors = array(); 
-$dishids=array();
-
-if(isset($_SESSION['type'])=="restaurant")
-  echo("<script>alert('already logged in as a Restaurant owner!');</script>");
-
-if(isset($_SESSION['type'])=="user")
-  echo("<script>alert('already logged in as a user! Log out first.');</script>");
-
-
-
-// connect to the database
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 
-
-// REGISTER USER
-if (isset($_POST['register'])) {
-  // receive all input values from the form
-  $resname = mysqli_real_escape_string($db, $_POST['resname']);
-  $email = mysqli_real_escape_string($db, $_POST['email']);
-  $ownname = mysqli_real_escape_string($db, $_POST['ownname']);
-  $password = mysqli_real_escape_string($db, $_POST['password']);
-    $location = mysqli_real_escape_string($db, $_POST['location']);
-  $city = mysqli_real_escape_string($db, $_POST['city']);
-  $country = mysqli_real_escape_string($db, $_POST['country']);
-  $phone = mysqli_real_escape_string($db, $_POST['phone']);
-  $add1 = mysqli_real_escape_string($db, $_POST['add1']);
-  $add2 = mysqli_real_escape_string($db, $_POST['add2']);
- // $resid=
-  $postcode = mysqli_real_escape_string($db, $_POST['postcode']);
-  // form validation: ensure that the form is correctly filled ...
-  // by adding (array_push()) corresponding error unto $errors array
-  if (empty($resname)) { array_push($errors, "Username is required");  echo "Username required";}
-  if (empty($email)) { array_push($errors, "Email is required"); }
-  if (empty($password)) { array_push($errors, "Password is required"); }
-  
-  // first check the database to make sure 
-  // a user does not already exist with the same username and/or email
-  $user_check_query = "SELECT * FROM restaurants WHERE res_name='$resname' OR email='$email' LIMIT 1";
-  $result = mysqli_query($db, $user_check_query);
-  $user = mysqli_fetch_assoc($result);
-  
-  if ($user) { // if user exists
-    if ($user['res_name'] === $resname) {
-      echo "Username exists";
-      array_push($errors, "Username already exists");
-    }
-
-    if ($user['email'] === $email) {
-      array_push($errors, "email already exists");
-    }
-  }
-
-  // Finally, register user if there are no errors in the form
-  if (count($errors) == 0) {
-    $password = md5($password);//encrypt the password before saving in the database
-
-    $query = "INSERT INTO restaurants (res_name, owner_name, country,streetadd1,streetadd2,city,postcode,phone,email,location,resid,password) 
-              VALUES('$resname', '$ownname', '$country','$add1', '$add2', '$city','$postcode', '$phone', '$email','$location', 0,'$password')";
-    mysqli_query($db, $query);
-    $_SESSION['email'] = $email;
-    $_SESSION['success'] = "You are now logged in";
-    $_SESSION['type'] = "restaurant";
-  }
+if(isset($_SESSION['type'])==="user")
+{
+  echo("<script>alert('already logged in as a user! Log out first.');
+    window.location.replace('index.php');
+    </script>");
 }
-$resid=$_SESSION['resid'];
+
+else if(!isset($_SESSION['resid'])){
+  echo("<script>
+    alert('Please signin first');
+    window.location.replace('reslogin.php');
+    </script>");
+}
+else{
+$resid = $_SESSION['resid'];
 $user_check_query = "SELECT * FROM menu WHERE resid='$resid' LIMIT 15";
 $result = mysqli_query($db, $user_check_query);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,17 +47,12 @@ $result = mysqli_query($db, $user_check_query);
 
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
     <style type="text/css">
      img{
       width: 300px;
@@ -124,9 +60,6 @@ $result = mysqli_query($db, $user_check_query);
      } 
 
     </style>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-primary">
@@ -151,28 +84,27 @@ $result = mysqli_query($db, $user_check_query);
 		  </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.html">FoodShala</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+      <div class="container">
+        <a class="navbar-brand" href="index.php">Vegefoods</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>       
-
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <!-- END nav -->
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Menu</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Menu</span></p>
             <h1 class="mb-0 bread">Menu</h1>
           </div>
         </div>
