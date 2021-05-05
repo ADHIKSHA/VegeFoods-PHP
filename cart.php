@@ -88,6 +88,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
 	          
 	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
 

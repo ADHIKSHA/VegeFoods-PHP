@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>FoodShala</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -45,7 +45,7 @@
 						    <span class="text">youremail@email.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
+						    <span class="text">Quick delivery </span>
 					    </div>
 				    </div>
 			    </div>
@@ -54,7 +54,7 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Vegefoods</a>
+	      <a class="navbar-brand" href="index.html">FoodShala</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -88,7 +88,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Login</span></p>
-            <h1 class="mb-0 bread">Login</h1>
+            <h1 class="mb-0 bread">Restaurant Login</h1>
           </div>
         </div>
       </div>
@@ -105,13 +105,13 @@
 	          		<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="firstname" style="font-size: 20px;">Restraunt Email</label>
-	                  <input type="text" class="form-control" name="email" placeholder="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+	                  <input type="text" required class="form-control" name="email" placeholder="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
 	                </div>
 	              </div><br>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname"style="font-size: 20px;">Password</label>
-	                  <input type="text" class="form-control" name="password" placeholder="" pattern=".{8,}">
+	                  <input type="password" required class="form-control" name="password" placeholder="" pattern=".{8,}">
 	                </div>
                 </div>
                 <div class="col-md-6" style="text-align: center;">

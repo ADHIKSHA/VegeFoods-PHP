@@ -1,0 +1,26 @@
+maintain sessions as user or resowner
+remove unnecessary checkbox from registering,login and checkout
+Order placed show on website.
+Text color change
+single product deatils
+user login status
+frequency control
+css beautification
+‌Whitespace management
+‌Dish name below image
+‌remove consent at paymenr page move towards login
+‌data validation
+‌js pop ups
+‌css 
+‌review exisiting food ordering site
+1. modify restaurant dashboard page
+2. change text color to black always
+3. after login add logout and profile button 
+4. back button after delete in res dashboard
+5, frequency control in front page
+
+shardulind:
+1. userreg.php  -- regex validation popup added
+2. userlogin.php -- regex validation popup added
+3. reslogin.php -- regex validation popup added
+4. 

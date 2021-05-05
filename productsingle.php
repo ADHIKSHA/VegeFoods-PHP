@@ -1,37 +1,13 @@
 <?php
 session_start();
-//$email    = "";
-
+error_reporting(0);
+$id=$_GET['id'];
 $errors = array(); 
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
-//  session_start();
-
-// initializing variables
-$name="";
-$location="";
-$phone="";
-$email    = $_SESSION['email'];
-$errors = array(); 
-
-// connect to the database
-$db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
-
-  // receive all input values from the form
-  
-  $user_check_query = "SELECT * FROM users WHERE email='$email'";
-  $result = mysqli_query($db, $user_check_query);
-  $user = mysqli_fetch_assoc($result);
-  
-    if ($user) {
-      $name=$user['fullname'];
-      $location=$user['location'];
-      $phone=$user['phone'];
-      $total=$_SESSION['costings'];
-      $disc=$total-$total*0.05;
-    }
-
+$query="SELECT * FROM menu WHERE dishid='$id' ";
+$result =mysqli_query($db, $query);
+echo ("<script>alert(`$id`)</script>");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,6 +37,13 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+     img{
+      width: 300px;
+      height: 300px;
+     } 
+
+    </style>
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-primary">
@@ -86,7 +69,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">FoodShala</a>
+	      <a class="navbar-brand" href="index.html">Vegefoods</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -94,9 +77,8 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	         
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
-
+	          <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
+	          
 	        </ul>
 	      </div>
 	    </div>
@@ -107,73 +89,173 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
-            <h1 class="mb-0 bread">Checkout</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Add</span></p>
+            <h1 class="mb-0 bread">Product Add</h1>
           </div>
         </div>
       </div>
     </div>
 
     <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-xl-7 ftco-animate">
-						<form action="#" class="billing-form">
-							<h3 class="mb-4 billing-heading">Billing Details</h3><div class="row align-items-end">
-	              <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="lastname">Name</label>
-	                  <input type="text" class="form-control" value="<?php echo $name;?>" disabled>
-	                </div>
+    	<div class="container">
+		<?php while($row = mysqli_fetch_array($result, MYSQLI_NUM)):?>
+    		<div class="product">
+              <a href="#" class="img-prod" style="height: 200px;width: 300px;"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $row[5] ).'"/>';?>
+                <div class="overlay"></div>
+              </a>
+              <div class="text py-3 pb-4 px-3 text-center">
+                <h3><a href="#"><?php echo $row[2]?></a></h3>
+                <div class="d-flex">
+                  <div class="pricing">
+                    <p class="price"><span class="price-sale">$<?php echo $row[4]?></span></p>
+                  </div>
                 </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-		            		<label for="postcodezip">Postcode / ZIP *</label>
-	                  <input type="text" class="form-control" value="<?php echo $location;?>" disabled>
-	                </div>
-		            </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="phone">Phone</label>
-	                  <input type="text" class="form-control" value="<?php echo $phone;?>" disabled>
-	                </div>
-	              </div>
-	              <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="emailaddress">Email Address</label>
-	                  <input type="text" class="form-control" value="<?php echo $email;?>" disabled>
-	                </div>
+                <div class="bottom-area d-flex px-3">
+                  <div class="m-auto d-flex">
+                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                      <span><i class="ion-ios-menu"></i></span>
+                    </a>
+                    <a href="cartadd.php?id=<?php echo $row[0]?>" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                      <span><i class="ion-ios-cart"></i></span>
+                    </a>
+                  
+                  </div>
                 </div>
-	          </form><!-- END -->
-	          <div class="row mt-5 pt-3">
-	          	</div>
-	          	<div class="col-md-12">
-	          		<div class="cart-detail p-3 p-md-4">
-	          			<h3 class="billing-heading mb-4">Payment Method</h3>
-									
-									<div class="form-group">	
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Cash</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Paytm</label>
-											</div>
-										</div>
-									</div>
-									<p><a href="done.php"class="btn btn-primary py-3 px-4">Place an order</a></p>
-								</div>
-	          	</div>
-	          </div>
-          </div> <!-- .col-md-8 -->
-        </div>
-      </div>
-    </section> <!-- .section -->
+              </div>
+            </div>
+			<?php endwhile ?>
+    	</div>
+    </section>
+
+    <section class="ftco-section">
+    	<div class="container">
+				<div class="row justify-content-center mb-3 pb-3">
+          <div class="col-md-12 heading-section text-center ftco-animate">
+          	<span class="subheading">Products</span>
+            <h2 class="mb-4">Related Products</h2>
+           
+          </div>
+        </div>   		
+    	</div>
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+    						<span class="status">30%</span>
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Bell Pepper</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing">
+		    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
+		    					</div>
+	    					</div>
+	    					<div class="bottom-area d-flex px-3">
+	    						<div class="m-auto d-flex">
+	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    								<span><i class="ion-ios-menu"></i></span>
+	    							</a>
+	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    								<span><i class="ion-ios-cart"></i></span>
+	    							</a>
+	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    								<span><i class="ion-ios-heart"></i></span>
+	    							</a>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Strawberry</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing">
+		    						<p class="price"><span>$120.00</span></p>
+		    					</div>
+	    					</div>
+    						<div class="bottom-area d-flex px-3">
+	    						<div class="m-auto d-flex">
+	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    								<span><i class="ion-ios-menu"></i></span>
+	    							</a>
+	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    								<span><i class="ion-ios-cart"></i></span>
+	    							</a>
+	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    								<span><i class="ion-ios-heart"></i></span>
+	    							</a>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
+	    					<div class="overlay"></div>
+	    				</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Green Beans</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing">
+		    						<p class="price"><span>$120.00</span></p>
+		    					</div>
+	    					</div>
+    						<div class="bottom-area d-flex px-3">
+	    						<div class="m-auto d-flex">
+	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    								<span><i class="ion-ios-menu"></i></span>
+	    							</a>
+	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    								<span><i class="ion-ios-cart"></i></span>
+	    							</a>
+	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    								<span><i class="ion-ios-heart"></i></span>
+	    							</a>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Purple Cabbage</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing">
+		    						<p class="price"><span>$120.00</span></p>
+		    					</div>
+	    					</div>
+    						<div class="bottom-area d-flex px-3">
+	    						<div class="m-auto d-flex">
+	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    								<span><i class="ion-ios-menu"></i></span>
+	    							</a>
+	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    								<span><i class="ion-ios-cart"></i></span>
+	    							</a>
+	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    								<span><i class="ion-ios-heart"></i></span>
+	    							</a>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+
 		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">
         <div class="row d-flex justify-content-center py-5">
@@ -244,7 +326,6 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
         </div>
       </div>
     </footer>
-  
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>

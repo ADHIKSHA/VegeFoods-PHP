@@ -6,6 +6,12 @@ $password = "";
 
 $errors = array(); 
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
+if(isset($_SESSION['type'])=="restaurant")
+  echo("<script>alert('already logged in as a Restaurant owner!');</script>");
+
+if(isset($_SESSION['type'])=="user")
+  echo("<script>alert('already logged in as a user! Log out first.');</script>");
+
 
 if (isset($_POST['login'])) {
   // receive all input values from the form
@@ -28,6 +34,7 @@ if (isset($_POST['login'])) {
     if ($user['password'] === $password) {
        $_SESSION['email'] = $email;
     $_SESSION['success'] = "You are now logged in";
+    $_SESSION['type'] = "user";
       $log=1;
       header('location: shop.php');
     }
@@ -50,6 +57,13 @@ $phone = "";
 $password = "";
 $location    = "";
 $errors = array(); 
+
+if(isset($_SESSION['type'])=="restaurant")
+  echo("<script>alert('Already logged in as a Restaurant owner!');</script>");
+
+if(isset($_SESSION['type'])=="user")
+  echo("<script>alert('Already logged in as a user! Log out first.');</script>");
+
 
 // connect to the database
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
@@ -91,6 +105,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     mysqli_query($db, $query);
     $_SESSION['email'] = $email;
     $_SESSION['success'] = "You are now logged in";
+    $_SESSION['type'] = "user";
     header('location: shop.php');
   }
 }

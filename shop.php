@@ -68,7 +68,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 						    <span class="text">youremail@email.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
+						    <span class="text">Quick Delivery &amp; Free Returns</span>
 					    </div>
 				    </div>
 			    </div>
@@ -77,7 +77,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">FoodShala</a>
+	      <a class="navbar-brand" href="index.html">VegeFood</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -133,15 +133,16 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     						<h3><a href="#"><?php echo $row[2]?></a></h3>
     						<div class="d-flex">
     							<div class="pricing">
-		    						<p class="price"><span class="price-sale">$<?php echo $row[4]?></span></p>
+                    <p class="price"><span class="price-sale">&#8377;  
+                    <?php echo $row[4]?></span></p>
 		    					</div>
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="cartadd.php" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    							<a href="productsingle.php?id=<?php echo $row[0]?>" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
-	    							<a href="cartadd.php" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="cartadd.php?id=<?php echo $row[0]?>" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    						

@@ -91,13 +91,13 @@
 	          		<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="firstname" style="font-size: 20px;">Email</label>
-	                  <input type="text" class="form-control" name="email" placeholder="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+	                  <input type="text" class="form-control" name="email" placeholder="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
 	                </div>
 	              </div><br>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname"style="font-size: 20px;">Password</label>
-	                  <input type="password" class="form-control" name="password" placeholder="" pattern=".{8,}">
+	                  <input type="password" class="form-control" name="password" placeholder="" pattern=".{8,}" required>
 	                </div>
                 </div>
                 <div class="col-md-6" style="text-align: center;">

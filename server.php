@@ -7,6 +7,13 @@ $password = "";
 $errors = array(); 
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 
+if(isset($_SESSION['type'])=="restaurant")
+  echo("<script>alert('already logged in as a Restaurant owner!');</script>");
+
+if(isset($_SESSION['type'])=="user")
+  echo("<script>alert('already logged in as a user! Log out first.');</script>");
+
+
 if (isset($_POST['login'])) {
   // receive all input values from the form
   $email = mysqli_real_escape_string($db, $_POST['email']);
@@ -28,6 +35,7 @@ if (isset($_POST['login'])) {
     if ($user['password'] === $password) {
        $_SESSION['resid'] = $user['userid'];
     $_SESSION['success'] = "You are now logged in";
+    $_SESSION['type'] = "restaurant";
       $log=1;
       header('location: addmenu.php');
     }

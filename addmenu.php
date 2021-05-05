@@ -15,6 +15,15 @@ $location    = "";
 $resid="";
 $errors = array(); 
 $dishids=array();
+
+if(isset($_SESSION['type'])=="restaurant")
+  echo("<script>alert('already logged in as a Restaurant owner!');</script>");
+
+if(isset($_SESSION['type'])=="user")
+  echo("<script>alert('already logged in as a user! Log out first.');</script>");
+
+
+
 // connect to the database
 $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 
@@ -66,6 +75,7 @@ if (isset($_POST['register'])) {
     mysqli_query($db, $query);
     $_SESSION['email'] = $email;
     $_SESSION['success'] = "You are now logged in";
+    $_SESSION['type'] = "restaurant";
   }
 }
 $resid=$_SESSION['resid'];
@@ -150,8 +160,7 @@ $result = mysqli_query($db, $user_check_query);
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	          
-	          
+	          <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>       
 
 	        </ul>
 	      </div>
@@ -171,7 +180,7 @@ $result = mysqli_query($db, $user_check_query);
     </div>
 
 <a href="adddish.php" style="text-align: left;" class="btn btn-primary">Add New Dish </a>
-<a href="delete.php" style="text-align: left;" class="btn btn-primary">Delete Dish</a>
+<a href="delete.php" style="text-align: left; background-color:tomato;" class="btn btn-primary">Delete Dish</a>
                <br><Br> 
 
 
