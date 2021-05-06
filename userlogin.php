@@ -107,6 +107,7 @@
 
 					</div>
 					 <a href="userreg.php" class="navbar-brand" >Sign Up?</a>
+           <a href="forgotpassword.php" class="navbar-brand" style="font-size:17px;">Forgot password</a>
         </div>
       </div>
 

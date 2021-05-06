@@ -1,9 +1,36 @@
 
-<?php include('server.php')?>
+<?php 
+   session_start();
+   // initializing variables
+   $errors = array(); 
+if(isset($_POST['save'])){
+// connect to the database
+    $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $password2 = $_POST['password2'];
+    if($password!=$password2){
+        echo "<script>
+        alert('The two passwords dont match!');
+        window.location.replace('forgotpassword.php');
+        </script>
+        ";
+    }
+  // first check the database to make sure 
+  // a user does not already exist with the same username and/or email
+  $user_check_query = "UPDATE users SET password = '$password' where email ='$email'";
+  $result = mysqli_query($db, $user_check_query);
+  //$values = mysqli_fetch_assoc($result);
+  echo "<script>alert('Password has been updated! Try loging In!')
+  window.location.replace('userlogin.php');
+  </script>
+  ";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>FoodShala</title>
+    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -45,7 +72,7 @@
 						    <span class="text">youremail@email.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">Quick delivery </span>
+						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
 					    </div>
 				    </div>
 			    </div>
@@ -62,7 +89,7 @@
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+	   
 	        </ul>
 	      </div>
 	    </div>
@@ -73,8 +100,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Login</span></p>
-            <h1 class="mb-0 bread">Restaurant Login</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Forgot password</span></p>
+            <h1 class="mb-0 bread">Forgot Password</h1>
           </div>
         </div>
       </div>
@@ -84,29 +111,34 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
-						<form action="reslogin.php" method="POST" class="billing-form">
+						<form action="forgotpassword.php" method="POST" class="billing-form">
 							<h3 class="mb-4 billing-heading">Enter your Login details here</h3>
               <?php include('errors.php')?>
 	          	<div class="row align-items-end">
+                  <div class="col-md-6">
+	                <div class="form-group">
+	                	<label for="firstname" style="font-size: 20px;">Email</label>
+	                  <input type="text" class="form-control" name="email" placeholder="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+	                </div>
+	              </div><br>
 	          		<div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="firstname" style="font-size: 20px;">Restraunt Email</label>
-	                  <input type="text" required class="form-control" name="email" placeholder="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+	                	<label for="firstname" style="font-size: 20px;">New Password</label>
+	                  <input type="password" class="form-control" name="password" placeholder="" pattern=".{8,}" required>
 	                </div>
 	              </div><br>
 	              <div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="lastname"style="font-size: 20px;">Password</label>
-	                  <input type="password" required class="form-control" name="password" placeholder="" pattern=".{8,}">
+	                	<label for="lastname"style="font-size: 20px;">Confirm Password</label>
+	                  <input type="password" class="form-control" name="password2" placeholder="" pattern=".{8,}" required>
 	                </div>
-                </div>
+                </div><br><br>
                 <div class="col-md-6" style="text-align: center;">
 	                <div class="form-group d-flex">
-                <input type="submit" style="font-size: 20px;" name="login" value="LOGIN" class="btn btn-primary "></div></div>
+                <input type="submit" style="font-size: 20px;" name="save" value="SAVE" class="btn btn-primary "></div></div>
              </form><!-- END -->
 
 					</div>
-					 <a href="resreg.html" class="navbar-brand" >Sign Up?</a>
         </div>
       </div>
 

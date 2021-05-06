@@ -91,7 +91,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
-	         
+            <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
 	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
 
 	        </ul>
@@ -115,7 +115,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
-						<form action="#" class="billing-form">
+						<form onsubmit="return confirm('Do you really want to Checkout ?');" action="done.php" class="billing-form">
 							<h3 class="mb-4 billing-heading">Billing Details</h3><div class="row align-items-end">
 	              <div class="col-md-6">
 	                <div class="form-group">
@@ -142,8 +142,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 	                  <input type="text" class="form-control" value="<?php echo $email;?>" disabled>
 	                </div>
                 </div>
-	          </form><!-- END -->
-	          <div class="row mt-5 pt-3">
+	           <div class="row mt-5 pt-3">
 	          	</div>
 	          	<div class="col-md-12">
 	          		<div class="cart-detail p-3 p-md-4">
@@ -163,8 +162,10 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
 											</div>
 										</div>
 									</div>
-									<p><a href="" class="btn btn-primary py-3 px-4" onclick="popup();">Place an order</a></p>
+									<p><input type="submit" name="checkouter" value="Place an order" class="btn btn-primary py-3 px-4"></p>
 								</div>
+                </form><!-- END -->
+           
 	          	</div>
 	          </div>
           </div> <!-- .col-md-8 -->
@@ -267,7 +268,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.13/dist/sweetalert2.all.min.js"></script>
  
   <script>
-  function popup(){
+  function popup(form){
     Swal.fire({
   title: 'Do you want to save the changes?',
   showDenyButton: true,
@@ -283,7 +284,7 @@ $db = mysqli_connect('localhost:3307', 'root', '', 'foodshala');
     Swal.fire('Changes are not saved', '', 'info')
     window.location.replace('cart.php');
   }
-})
+});
 }
 
 		$(document).ready(function(){
